@@ -17,7 +17,24 @@ export default function App(){
 
   const [todos,setTodos]=useState(()=>{
     const todosData=localStorage.getItem("todos")
-    if(todosData==null)return []
+    if(todosData==null)return [{
+      id:"093a1b46-09a1-49f8-a1f4-490ddc549e61", 
+      completed: false, 
+      content: "making bread",      deadline:"2024-11-22T15:14:22.584Z",
+      editable: false,
+      time:1732288462584},
+      {
+        id:"093a1b46-09a1-49f8-a1y4-490ddc549e61", 
+        completed: false, 
+        content: "swap",      deadline:"2024-11-24T15:14:22.584Z",
+        editable: false,
+        time:1732288462586},
+        {
+          id:"093a1b46-19a1-45f8-a1f4-490ddc549e61", 
+          completed: false, 
+          content: "making love",      deadline:"2024-11-23T15:14:22.584Z",
+          editable: false,
+          time:1732288462588}]
     return JSON.parse(todosData).map(todo => ({
       ...todo,
       deadline: todo.deadline ? new Date(todo.deadline) : null
@@ -42,7 +59,7 @@ export default function App(){
       id:crypto.randomUUID(),
       completed:false,
       content:newItem,  
-      deadline:"2024-12-02",
+      deadline:new Date(),
       time:Date.now(),
       editable:false,
     }])
@@ -51,6 +68,7 @@ export default function App(){
 
 
   function handleSubmit(e){
+    console.log("submit")
     e.preventDefault()
     //if content not change,then return
     //otherwise handleEditContent

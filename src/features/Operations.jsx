@@ -33,7 +33,7 @@ export default function Operations({setTodos}){
         setTodos(curTodos=>[...curTodos].sort((a,b)=>{
           if (!a.deadline) return 1;
           if (!b.deadline) return -1;
-          return a.deadline.getTime() - b.deadline.getTime();
+          return a.deadline - b.deadline;
         }))
       
   }
@@ -43,7 +43,7 @@ export default function Operations({setTodos}){
     <input type="button" id="clear-allItems" value="CLEAR" onClick={handleClearItems}/>
     </label>
     
-    <select name="orderBy-allItems"
+    <select title="orderBy-allItems"
     value={orderBy}
     onChange={handleOrderBy}>
       <option value="default">Default</option>
