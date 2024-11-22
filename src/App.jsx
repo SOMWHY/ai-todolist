@@ -176,7 +176,7 @@ export default function App(){
          endDate="null"
          dateFormat="yyyy/MM/dd" 
          selected={todo.deadline}
-         onChange={} 
+        //  onChange={} 
          placeholderText="set a deadline"
         />
         </li>
