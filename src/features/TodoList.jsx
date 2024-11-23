@@ -7,7 +7,7 @@ export default function TodoList({todos,setTodos}){
           
         },[todos])
 
-     return <ul className="form-list">
+     return <ul className="form-list flex flex-1 flex-col items-center px-2 py-5 gap-3  w-full bg-malibu-100 rounded-md snap-mandatory snap-y overflow-x-hidden overflow-y-auto scrollbar-hidden" >
     {todos?.map((todo,index)=><TodoItem key={todo.id} {...todo} setTodos={setTodos} todos={todos} index={index}/>)}
      </ul>
 }

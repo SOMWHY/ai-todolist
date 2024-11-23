@@ -60,19 +60,29 @@ export default function TodoItem({id,completed,editable,content,time,deadline,im
     onDragEnd={handleDragToSort}
     onDragOver={e=>e.preventDefault()}
     key={id}
-    className="form-list-item text-wrap cursor-move">
-      <label htmlFor="check-item" >
-      <input type="checkbox" id="check-item" onChange={(e)=>handleCheckItem(id,e.target.checked)} checked={completed}/>
+    className="form-list-item">
+
+      <div className="flex justify-evenly">
+        
+      <label htmlFor="check-item" className="inline-block bg-malibu-200 w-10 rounded-md h-10">
+      <input type="checkbox" id="check-item" onChange={(e)=>handleCheckItem(id,e.target.checked)} checked={completed} className="invisible"/>
       </label>
+      
+     <Star onStarItem={handleStarItem} id={id} important={important}/>
+
+      <label htmlFor="delete-item" className="inline-block  bg-cerise-red-600 rounded-xl text-center ">
+      <input type="button" id="delete-item" onClick={()=>handleDeleteItem(id)}  className="invisible w-0"/>
+      delete
+      </label>
+      </div>
+
+     
        <p
        contentEditable={editable}
        onDoubleClick={()=>handleEditable(id)}
        onKeyDown={(e)=>handleConfirmEdit(e,id)}
-       className={completed?"text-gray-800/50 line-through":undefined}>{content}</p>
-      <label htmlFor="delete-item" className="inline-block  bg-red-600">
-      <input type="button" id="delete-item" onClick={()=>handleDeleteItem(id)} value="delete"/>
-      </label>
-     
+       className={completed?"text-malibu-900/50 line-through ":undefined}>{content}</p>
+    
       <DatePicker
        showIcon
        isClearable  
@@ -85,8 +95,7 @@ export default function TodoItem({id,completed,editable,content,time,deadline,im
        selected={deadline}
        onChange={(date) => handleDeadline(id, date)} 
        placeholderText="set a deadline"
+     
       />
-
-      <Star onStarItem={handleStarItem} id={id} important={important}/>
       </li>
 }
