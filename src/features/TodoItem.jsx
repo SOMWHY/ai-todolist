@@ -2,9 +2,17 @@ import { useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import swap from "../helpers/swap";
-export default function TodoItem({id,completed,editable,content,time,deadline,setTodos,todos,index}){
+import Star from "../ui/Star";
+export default function TodoItem({id,completed,editable,content,time,deadline,important,setTodos,todos,index}){
   const todoDragged=useRef(0)
   const todoDraggedOver=useRef(0)
+
+  function handleConfirmEdit(e,id){
+
+    if(e.key=="Enter") 
+      setTodos(curTodos=>curTodos.map(todo=>todo.id===id?{...todo,content:e.target.textContent,editable:false}:todo))
+      
+  }
 
   function handleDragToSort(){
     if(todoDragged.current!==0&&todoDraggedOver.current!==0){
@@ -14,6 +22,12 @@ export default function TodoItem({id,completed,editable,content,time,deadline,se
     }
     todoDragged.current=0
     todoDraggedOver.current=0
+  }
+
+  function handleStarItem(id,important){
+
+    setTodos(curTodos=>curTodos.map(todo=>todo.id===id?{...todo,important}:todo))
+  
   }
 
   function handleCheckItem(id,completed){
@@ -27,10 +41,10 @@ export default function TodoItem({id,completed,editable,content,time,deadline,se
   }
 
   
-//   function handleEditable(id){
-//     setTodos(curTodos=>curTodos.map(todo=>todo.id===id?{...todo,editable: !todo.editable}:todo))
-// //dblclick to toggle editable
-//   }
+  function handleEditable(id){
+    setTodos(curTodos=>curTodos.map(todo=>todo.id===id?{...todo,editable:true}:todo))
+//dblclick to toggle editable
+  }
 
   function handleDeadline(id, date){
     setTodos((curTodos) =>
@@ -52,7 +66,8 @@ export default function TodoItem({id,completed,editable,content,time,deadline,se
       </label>
        <p
        contentEditable={editable}
-      //  onDoubleClick={()=>handleEditable(id)}
+       onDoubleClick={()=>handleEditable(id)}
+       onKeyDown={(e)=>handleConfirmEdit(e,id)}
        className={completed?"text-gray-800/50 line-through":undefined}>{content}</p>
       <label htmlFor="delete-item" className="inline-block  bg-red-600">
       <input type="button" id="delete-item" onClick={()=>handleDeleteItem(id)} value="delete"/>
@@ -71,5 +86,7 @@ export default function TodoItem({id,completed,editable,content,time,deadline,se
        onChange={(date) => handleDeadline(id, date)} 
        placeholderText="set a deadline"
       />
+
+      <Star onStarItem={handleStarItem} id={id} important={important}/>
       </li>
 }

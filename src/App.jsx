@@ -62,6 +62,7 @@ export default function App(){
       deadline:new Date(),
       time:Date.now(),
       editable:false,
+      important:false,
     }])
     setNewItem("")
   }
@@ -79,9 +80,11 @@ export default function App(){
   }
 
 
-  return <form className={darkmode&&"dark "+"form bg-slate-300 dark:bg-slate-800 dark:text-slate-300"} onSubmit={handleSubmit}>
+  return <form 
+  
+  className={darkmode&&"dark "+"form bg-slate-300 dark:bg-slate-800 dark:text-slate-300"} onSubmit={handleSubmit}>
     <Header newItemInputRef={newItemInputRef} newItem={newItem} setNewItem={setNewItem} setDarkmode={setDarkmode}/>
-    <Operations setTodos={setTodos}/>
+    <Operations setTodos={setTodos} todos={todos}/>
     <TodoList todos={todos} setTodos={setTodos}/>
   </form>
 
