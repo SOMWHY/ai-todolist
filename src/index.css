@@ -19,10 +19,9 @@
       @apply bg-malibu-700 hover:bg-malibu-500 text-malibu-100 font-bold py-2 px-4 rounded;
     }
     .form-list-item{
-      @apply inline-flex flex-col rounded-lg w-full p-5  bg-malibu-500/80 font-cursive tracking-wide font-thin text-2xl 
+  
+      @apply bg-malibu-700/40 shadow-md rounded-lg p-5 transition-all duration-300 ease-in-out hover:shadow-lg w-full inline-flex flex-col font-cursive 
       text-wrap snap-start cursor-move
-      shadow-malibu-800
-      shadow-sm
     }
   }
   

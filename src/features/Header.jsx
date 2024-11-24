@@ -8,7 +8,7 @@ export default function Header({newItemInputRef,newItem,setNewItem,setDarkmode})
       text-center font-bold font-cursive tracking-tight text-8xl text-malibu-950
         select-none w-full">Todos</label>
       <input 
-      className="mt-[auto] outline-none bg-malibu-800/80 text-malibu-300 font-sans"
+      className="mt-[auto] outline-none bg-malibu-800/80 text-malibu-300 font-sans pl-3"
       type="text" 
       placeholder="ADD NEW TODO HERE~"
       id="add-newItem"

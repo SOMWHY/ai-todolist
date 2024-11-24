@@ -36,7 +36,7 @@ export default function Operations({setTodos}){
             if(a.important===b.important) return 0
             return a.important?-1:1
           }))
-  },[orderBy,setTodos])
+  },[])
   
   
   useEffect(()=>{
@@ -86,11 +86,11 @@ export default function Operations({setTodos}){
     </div>
     </div>}
   
-    <div className="flex-center gap-3 rounded-md bg-malibu-200 w-full h-[15%]">
+    <div className="flex-center gap-3 rounded-md bg-malibu-200 w-full h-[15%] p-3">
    
     <Button 
     onClick={()=>setModalIsOpen(true)}
-    mode="clear" className="text-malibu-300 w-[15%] h-[80%] rounded-2xl bg-cerise-red-700"/>
+    mode="clear" className="text-malibu-300 w-[15%] h-[80%] max-w-24 rounded-2xl bg-cerise-red-700"/>
     <Select name="orderBy" 
         className="bg-malibu-100 text-xl
         text-malibu-950

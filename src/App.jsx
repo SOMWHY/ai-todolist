@@ -82,7 +82,7 @@ export default function App(){
 
   return <form 
   
-  className={darkmode&&"dark "+" flex flex-col items-center w-full max-w-[1000px] h-screen rounded-sm px-1 py-1 gap-1 absolute left-[50%] -translate-x-[50%]"} onSubmit={handleSubmit}>
+  className={darkmode&&"dark "+" flex flex-col items-center w-full max-w-[640px] h-screen rounded-sm px-1 py-1 gap-1 absolute left-[50%] -translate-x-[50%]"} onSubmit={handleSubmit}>
     <Header newItemInputRef={newItemInputRef} newItem={newItem} setNewItem={setNewItem} setDarkmode={setDarkmode}/>
     <Operations setTodos={setTodos} todos={todos}/>
     <TodoList todos={todos} setTodos={setTodos}/>
