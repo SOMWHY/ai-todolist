@@ -1,11 +1,10 @@
-export default function Star({onStarItem,id,important}){
-
-
-    return <label htmlFor="star" className="inline-block  cursor-pointer">
- <input
+export default function Star({ onStarItem, id, important }) {
+  return (
+    <label htmlFor={`star-${id}`} className="inline-block cursor-pointer">
+      <input
         type="checkbox"
-        name="star"
-        id="star"
+        name={`star-${id}`}
+        id={`star-${id}`}
         checked={important}
         onChange={(e) => onStarItem(id, e.target.checked)}
         className="hidden peer"
@@ -14,9 +13,11 @@ export default function Star({onStarItem,id,important}){
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className={`${important?"text-cerise-red-700 ":"text-cerise-red-100 "} w-8 h-8 peer-checked:text-yellow-400 transition-colors duration-200`}
+        className={`${important ? "text-cerise-red-700 " : "text-cerise-red-100 "} w-8 h-8 peer-checked:text-yellow-400 transition-colors duration-200`}
       >
         <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
       </svg>
     </label>
+  )
 }
+

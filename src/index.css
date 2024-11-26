@@ -9,19 +9,22 @@
     h2 {
       @apply text-xl;
     }
+   
   }
   
   @layer components {
     .overlay{
-        @apply fixed z-50 w-full h-screen bg-malibu-950 flex-center
+        @apply fixed z-50 w-full h-screen bg-malibu-950 flex-center dark:bg-malibu-900/80
     }
+    
     .btn-blue {
       @apply bg-malibu-700 hover:bg-malibu-500 text-malibu-100 font-bold py-2 px-4 rounded;
     }
     .form-list-item{
   
       @apply bg-malibu-700/40 shadow-md rounded-lg p-5 transition-all duration-300 ease-in-out hover:shadow-lg w-full inline-flex flex-col font-cursive 
-      text-wrap snap-start cursor-move
+      text-wrap cursor-move dark:bg-malibu-950 dark:ring-malibu-700/60
+      dark:ring-1
     }
   }
   
