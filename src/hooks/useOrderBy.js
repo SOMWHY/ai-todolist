@@ -17,7 +17,7 @@ export function useOrderBy(setTodos) {
       if (orderBy === "default")
         newTodos.sort((a, b) => a.time - b.time);
       else if (orderBy === "reversed")
-        newTodos.reverse();
+        newTodos.sort((a, b) => a.time - b.time).reverse();
       else if (orderBy === "byDeadline")
         newTodos.sort((a, b) => {
           if (!a.deadline) return 1;

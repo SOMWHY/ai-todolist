@@ -1,9 +1,25 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Star from "../ui/Star";
-import Button from "../ui/Button";
+import CheckBox from "../ui/CheckBox";
+import DeleteButton from "../ui/DeleteButton";
+
+import gsap from "gsap";
+import {  useCallback, useLayoutEffect, useRef } from "react";
 
 export default function TodoItem({ id, completed, editable, content, time, deadline, important, setTodos, todos }) {
+  const textRef = useRef(null);
+
+  const measureTextWidth = useCallback((text) => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    if (context) {
+      context.font = window.getComputedStyle(textRef.current).font;
+      return context.measureText(text).width;
+    }
+    return 0;
+  }, []);
+
   function handleDragStart() {
     setTodos(curTodos => curTodos.map(todo => todo.id === id ? { ...todo, active: true } : todo));
   }
@@ -29,6 +45,15 @@ export default function TodoItem({ id, completed, editable, content, time, deadl
 
   function handleCheckItem(id, completed) {
     setTodos(curTodos => curTodos.map(todo => todo.id === id ? { ...todo, completed } : todo));
+
+    if (textRef.current) {
+      const textWidth = measureTextWidth(content);
+      gsap.to(textRef.current, {
+        duration: 0.3,
+        backgroundSize: completed ? `${textWidth}px 1px` : "0px 1px",
+        ease: "power2.inOut"
+      });
+    }
   }
 
   function handleDeleteItem(id) {
@@ -47,6 +72,20 @@ export default function TodoItem({ id, completed, editable, content, time, deadl
     );
   }
 
+  useLayoutEffect(() => {
+    if (textRef.current) {
+      const textWidth = measureTextWidth(content);
+      gsap.set(textRef.current, {
+        backgroundImage: "linear-gradient(to right, currentColor, currentColor)",
+        backgroundSize: completed ? `${textWidth}px 1px` : "0px 1px",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "left center",
+        display: "inline",
+        paddingBottom: "2px"
+      });
+    }
+  }, [completed, content, measureTextWidth]);
+
   return (
     <li 
       draggable
@@ -57,50 +96,24 @@ export default function TodoItem({ id, completed, editable, content, time, deadl
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-8">
-          <label htmlFor={`check-item-${id}`} className="relative">
-            <input
-              type="checkbox"
-              id={`check-item-${id}`}
-              onChange={(e) => handleCheckItem(id, e.target.checked)}
-              checked={completed}
-              className="sr-only peer"
-            />
-            <div className="w-6 h-6 border-2 border-malibu-950 rounded-full dark:border-malibu-500/80
-            peer-checked:bg-malibu-500
-            dark:peer-checked:bg-malibu-600 
-            peer-checked:border-malibu-500 
-            dark:peer-checked:border-malibu-600
-            transition-all duration-200 ease-in-out"></div>
-            <svg
-              className="absolute w-4 h-4 text-malibu-100 top-1 left-1 pointer-events-none hidden peer-checked:block"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </label>
+          <CheckBox id={id} checked={completed} onChange={handleCheckItem} />
           <Star onStarItem={handleStarItem} id={id} important={important} />
         </div>
-        <Button
+        <DeleteButton
           onClick={() => handleDeleteItem(id)}
-          mode="delete"
           className="bg-malibu-950 rounded-lg flex-center p-2 text-cerise-red-500 hover:text-cerise-red-700 transition-colors duration-200"
         />
       </div>
       <p
+        ref={textRef}
         contentEditable={editable}
         onDoubleClick={() => handleEditable(id)}
         onKeyDown={(e) => handleConfirmEdit(e)}
-        className={`mb-3 text-lg ${
+        className={`mb-3 text-lg inline ${
           completed
-            ? "text-malibu-950/50 dark:text-malibu-300/50 line-through"
+            ? "text-malibu-950/50 dark:text-malibu-300/50"
             : "text-malibu-950 dark:text-malibu-300"
-        } transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded px-2 py-1`}
+        } transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded`}
       >
         {content}
       </p>
@@ -121,4 +134,6 @@ export default function TodoItem({ id, completed, editable, content, time, deadl
     </li>
   );
 }
+
+
 

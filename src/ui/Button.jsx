@@ -1,8 +1,9 @@
 import { Delete, Settings as SettingsIcon, PlusSquare, Trash2, ArrowRight, ArrowLeft } from "react-feather"
 
-export default function Button({ className, mode = "unset", onClick, children, ...props }) {
+export default function Button({ className, mode = "unset", onClick, children, ref,...props }) {
   return (
     <button 
+    ref={ref}
       onClick={onClick}
       className={`flex-center p-3 hover:scale-105 transition-transform shadow-sm shadow-malibu-700 active:shadow-inner select-none ${className}`}
       {...props}
