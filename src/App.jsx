@@ -16,7 +16,7 @@ export default function App() {
   const newItemInputRef = useRef(null);
 
   useEffect(() => {
-    // sortTodos();
+    sortTodos();
   }, [todos, sortTodos]);
 
   function handleAddItem() {

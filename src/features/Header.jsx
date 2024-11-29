@@ -1,12 +1,25 @@
-import Button from "../ui/Button"
+import { useRef, useEffect } from "react";
+import Button from "../ui/Button";
+import gsap from "gsap";
 
 export default function Header({newItemInputRef, newItem, setNewItem, setDarkmode, todos}) {
+  const headerRef = useRef(null);
   const totalTodos = todos?.length;
   const completedTodos = todos.filter(todo => todo.completed === true).length;
   const realTodos = totalTodos - completedTodos;
 
+  useEffect(() => {
+    const header = headerRef.current;
+    gsap.set(header, { scaleY: 0, transformOrigin: "top" });
+    gsap.to(header, {
+      scaleY: 1,
+      duration: 0.8,
+      ease: "elastic.out(1, 0.5)",
+    });
+  }, []);
+
   return (
-    <header className="form-header relative w-full h-[30%] bg-malibu-600 dark:bg-malibu-900 dark:shadow-malibu-600 rounded-md shadow-malibu-800 shadow-md flex flex-col overflow-hidden">
+    <header ref={headerRef} className="form-header relative w-full h-[30%] bg-malibu-600 dark:bg-malibu-900 dark:shadow-malibu-600 rounded-md shadow-malibu-800 shadow-md flex flex-col overflow-hidden">
       <label htmlFor="add-newItem" className="my-[auto] text-center font-bold font-cursive tracking-tight text-8xl text-malibu-950 dark:text-malibu-500/70 select-none w-full">
         {`${(realTodos + "").length > 2 ? "Fuck" : realTodos}${realTodos === 1 ? "Todo" : "Todos"}`}
       </label>
