@@ -24,7 +24,7 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
 
 
   useEffect(() => {
-    // sortTodos();
+    sortTodos();
   }, [todos, sortTodos]);
 
   function handleAddItem() {
