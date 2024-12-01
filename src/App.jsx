@@ -6,8 +6,8 @@ import Header from "./features/Header";
 import Operations from "./features/Operations";
 import TodoList from "./features/TodoList";
 import Modal from "./ui/Modal";
-
 import useUndoRedo from "./hooks/useUndoRedo";
+
 import HeaderExtend from "./features/HeaderExtend";
 
 
@@ -16,11 +16,10 @@ export default function App() {
   const { darkmode, setDarkmode } = useDarkMode();
   const { orderBy, setOrderBy, sortTodos } = useOrderBy(setTodos);
   const [showDuplicatedModal, setShowDuplicatedModal] = useState(false);
-  const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
 
-  const [newItem, setNewItem,undo,redo,inputRef]=useUndoRedo("",5)
-  
 
+const [newItem,setNewItem,undo,redo,inputRef]=useUndoRedo("",5)
+const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
   
 
 
@@ -46,11 +45,11 @@ export default function App() {
     e.preventDefault();
     if (!newItem) return;
 
-    if (todos.some(todo => todo.content === newItem)) {
+    if (newItem === todos?.find(todo => todo?.content === newItem)?.content) 
       setShowDuplicatedModal(true);
-    } else {
+   
       handleAddItem();
-    }
+    
   }
 
   function handleConfirm() {
@@ -94,8 +93,13 @@ export default function App() {
           todos={todos}
           setIsShowHeaderExtend={setIsShowHeaderExtend}
         />
-        <HeaderExtend undo={undo} redo={redo} newItem={newItem} setNewItem={setNewItem} isShowHeaderExtend={isShowHeaderExtend}/>
-    
+        <HeaderExtend
+        isShowHeaderExtend={isShowHeaderExtend}
+        undo={undo}
+        redo={redo}
+        newItem={newItem}
+        setNewItem={setNewItem}
+        />
         <Operations 
           setTodos={setTodos} 
           todos={todos}
@@ -107,4 +111,5 @@ export default function App() {
     </div>
   );
 }
+
 

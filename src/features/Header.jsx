@@ -8,8 +8,6 @@ export default function Header({newItemInputRef, newItem, setNewItem, setDarkmod
   const completedTodos = todos.filter(todo => todo.completed === true).length;
   const realTodos = totalTodos - completedTodos;
 
-
-
   useEffect(() => {
     const header = headerRef.current;
     gsap.set(header, { scaleY: 0, transformOrigin: "top" });
@@ -18,6 +16,9 @@ export default function Header({newItemInputRef, newItem, setNewItem, setDarkmod
       duration: 0.8,
       ease: "elastic.out(1, 0.5)",
     });
+
+
+    
   }, []);
 
   return (
@@ -34,7 +35,6 @@ export default function Header({newItemInputRef, newItem, setNewItem, setDarkmod
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
         onClick={()=>setIsShowHeaderExtend(open=>!open)}
-      
       />
       <Button
         className="absolute top-3 right-3 p-[1.8px] w-[10%] aspect-video min-w-8 max-w-16 rounded-2xl bg-malibu-200/40 hover:bg-malibu-200/60 text-malibu-950 hover:rotate-180 hover:text-malibu-900 dark:text-malibu-300/80
