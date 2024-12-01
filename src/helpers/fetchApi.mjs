@@ -1,5 +1,9 @@
 import OpenAI from "openai";
-const openai = new OpenAI({baseURL:'https://api.chatanywhere.tech',apiKey:'sk-qhwuiRw1AJITazAC19Z6dWUFjlONpAK1gUUHHq6rapfk2hTS',dangerouslyAllowBrowser: true});
+const openai = new OpenAI({
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY,  // 使用 Vite 的环境变量
+    baseURL: 'https://api.chatanywhere.tech',
+    dangerouslyAllowBrowser: true
+});
 
 export default async function handleGenerating
 (setIsGenerating,newItem,setNewItem) {
