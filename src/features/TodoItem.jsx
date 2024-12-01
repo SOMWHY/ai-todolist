@@ -32,7 +32,7 @@ export default function TodoItem({ id, completed, editable, content, time, deadl
     if (e.key === "Enter") 
       setTodos(curTodos => curTodos.map(todo => todo.id === id ? {
         ...todo, 
-        content: e.target.textContent === todos?.find(t => t?.content === e.target.textContent)?.content ?
+        content: e.target.textContent === todos?.find(t => t?.content === e.target.textContent&&t.id!==id)?.content ?
           "Please edit this todo for a non-repetitive version" :
           e.target.textContent || "",
         editable: false
