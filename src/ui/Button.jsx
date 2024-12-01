@@ -1,11 +1,13 @@
 import { Delete, Settings as SettingsIcon, PlusSquare, Trash2, ArrowRight, ArrowLeft } from "react-feather"
 
-export default function Button({ className, mode = "unset", onClick, children, ref,...props }) {
+export default function Button({ className, mode = "unset", onClick, children, ref,disabled,type,...props }) {
   return (
-    <button 
+    <button
+    type={type} 
+      disabled={disabled}
     ref={ref}
       onClick={onClick}
-      className={`flex-center p-3 hover:scale-105 transition-transform shadow-sm shadow-malibu-700 active:shadow-inner select-none ${className}`}
+      className={`${disabled ?"opacity-65 cursor-not-allowed":"active:shadow-inner hover:scale-105 cursor-pointer"} flex-center p-3  transition-all shadow-sm shadow-malibu-700  select-none ${className}`}
       {...props}
     >
       {mode === "delete" && <Delete />}

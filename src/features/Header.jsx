@@ -33,8 +33,10 @@ export default function Header({newItemInputRef, newItem, setNewItem, setDarkmod
         onChange={(e) => setNewItem(e.target.value)}
       />
       <Button
-        className="absolute top-3 right-3 p-[1.8px] w-[10%] aspect-video min-w-8 max-w-16 rounded-2xl bg-malibu-200/40 hover:bg-malibu-200/60 text-malibu-950 hover:rotate-180 hover:text-malibu-900"
+        className="absolute top-3 right-3 p-[1.8px] w-[10%] aspect-video min-w-8 max-w-16 rounded-2xl bg-malibu-200/40 hover:bg-malibu-200/60 text-malibu-950 hover:rotate-180 hover:text-malibu-900 dark:text-malibu-300/80
+        dark:hover:text-malibu-200 "
         mode="settings" 
+        type="button"
         onClick={() => setDarkmode(darkmode => !darkmode)}
       />
     </header>

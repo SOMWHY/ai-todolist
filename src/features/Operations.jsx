@@ -35,6 +35,7 @@ export default function Operations({ setTodos, todos, orderBy, setOrderBy }) {
       )}
       <div className="flex-center gap-3 rounded-md bg-malibu-200 w-full h-[15%] p-3 dark:bg-malibu-950">
         <Button 
+        type="button"
           onClick={() => setModalIsOpen(true)}
           mode="clear" 
           className="text-malibu-300 w-[15%] h-[80%] max-w-24 rounded-2xl bg-cerise-red-700 dark:bg-cerise-red-500"

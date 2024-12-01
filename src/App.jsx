@@ -6,6 +6,9 @@ import Header from "./features/Header";
 import Operations from "./features/Operations";
 import TodoList from "./features/TodoList";
 import Modal from "./ui/Modal";
+import handleGenerating from "./helpers/fetchApi.mjs";
+import Button from "./ui/Button";
+
 
 export default function App() {
   const { todos, setTodos } = useTodos();
@@ -13,10 +16,14 @@ export default function App() {
   const { orderBy, setOrderBy, sortTodos } = useOrderBy(setTodos);
   const [showDuplicatedModal, setShowDuplicatedModal] = useState(false);
   const [newItem, setNewItem] = useState("");
+  const [isGenerating,setIsGenerating]=useState(false)
   const newItemInputRef = useRef(null);
 
+  
+
+
   useEffect(() => {
-    sortTodos();
+    // sortTodos();
   }, [todos, sortTodos]);
 
   function handleAddItem() {
@@ -71,10 +78,12 @@ export default function App() {
         </Modal>
       )}
       <form 
+         
         autoComplete="off"
         className={`flex flex-col items-center w-full max-w-[640px] h-screen rounded-sm px-1 py-1 gap-1 absolute left-[50%] -translate-x-[50%]`} 
         onSubmit={handleSubmit}
       >
+        <button type="submit" className="hidden" name="hiddenElForSubmitting"/>
         <Header 
           newItemInputRef={newItemInputRef} 
           newItem={newItem} 
@@ -82,6 +91,18 @@ export default function App() {
           setDarkmode={setDarkmode} 
           todos={todos}
         />
+        <Button 
+        type="button"
+        onClick={()=>handleGenerating(setIsGenerating,newItem,setNewItem)}
+        disabled={isGenerating||!newItem}
+        className="dark:bg-malibu-950 rounded-xl dark:text-malibu-200
+        bg-malibu-500 text-malibu-950
+        font-semibold tracking-tight
+        "
+        >
+        {isGenerating?"Generating":"Make the mess a CLEAN todo title!"}
+          
+        </Button>
         <Operations 
           setTodos={setTodos} 
           todos={todos}
