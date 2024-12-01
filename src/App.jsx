@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState } from "react";
+import {useEffect, useState } from "react";
 import { useTodos } from "./hooks/useTodos";
 import { useDarkMode } from "./hooks/useDarkMode";
 import { useOrderBy } from "./hooks/useOrderBy";
@@ -6,8 +6,9 @@ import Header from "./features/Header";
 import Operations from "./features/Operations";
 import TodoList from "./features/TodoList";
 import Modal from "./ui/Modal";
-import handleGenerating from "./helpers/fetchApi.mjs";
-import Button from "./ui/Button";
+
+import useUndoRedo from "./hooks/useUndoRedo";
+import HeaderExtend from "./features/HeaderExtend";
 
 
 export default function App() {
@@ -15,9 +16,10 @@ export default function App() {
   const { darkmode, setDarkmode } = useDarkMode();
   const { orderBy, setOrderBy, sortTodos } = useOrderBy(setTodos);
   const [showDuplicatedModal, setShowDuplicatedModal] = useState(false);
-  const [newItem, setNewItem] = useState("");
-  const [isGenerating,setIsGenerating]=useState(false)
-  const newItemInputRef = useRef(null);
+  const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
+
+  const [newItem, setNewItem,undo,redo,inputRef]=useUndoRedo("",5)
+  
 
   
 
@@ -44,11 +46,11 @@ export default function App() {
     e.preventDefault();
     if (!newItem) return;
 
-    if (newItem === todos?.find(todo => todo?.content === newItem)?.content) 
+    if (todos.some(todo => todo.content === newItem)) {
       setShowDuplicatedModal(true);
-   
+    } else {
       handleAddItem();
-    
+    }
   }
 
   function handleConfirm() {
@@ -85,24 +87,15 @@ export default function App() {
       >
         <button type="submit" className="hidden" name="hiddenElForSubmitting"/>
         <Header 
-          newItemInputRef={newItemInputRef} 
+          newItemInputRef={inputRef} 
           newItem={newItem} 
           setNewItem={setNewItem} 
           setDarkmode={setDarkmode} 
           todos={todos}
+          setIsShowHeaderExtend={setIsShowHeaderExtend}
         />
-        <Button 
-        type="button"
-        onClick={()=>handleGenerating(setIsGenerating,newItem,setNewItem)}
-        disabled={isGenerating||!newItem}
-        className="dark:bg-malibu-950 rounded-xl dark:text-malibu-200
-        bg-malibu-500 text-malibu-950
-        font-semibold tracking-tight
-        "
-        >
-        {isGenerating?"Generating":"Make the mess a CLEAN todo title!"}
-          
-        </Button>
+        <HeaderExtend undo={undo} redo={redo} newItem={newItem} setNewItem={setNewItem} isShowHeaderExtend={isShowHeaderExtend}/>
+    
         <Operations 
           setTodos={setTodos} 
           todos={todos}
@@ -114,5 +107,4 @@ export default function App() {
     </div>
   );
 }
-
 

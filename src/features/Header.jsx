@@ -2,11 +2,13 @@ import { useRef, useEffect } from "react";
 import Button from "../ui/Button";
 import gsap from "gsap";
 
-export default function Header({newItemInputRef, newItem, setNewItem, setDarkmode, todos}) {
+export default function Header({newItemInputRef, newItem, setNewItem, setDarkmode, todos,setIsShowHeaderExtend}) {
   const headerRef = useRef(null);
   const totalTodos = todos?.length;
   const completedTodos = todos.filter(todo => todo.completed === true).length;
   const realTodos = totalTodos - completedTodos;
+
+
 
   useEffect(() => {
     const header = headerRef.current;
@@ -31,6 +33,8 @@ export default function Header({newItemInputRef, newItem, setNewItem, setDarkmod
         ref={newItemInputRef}
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
+        onClick={()=>setIsShowHeaderExtend(open=>!open)}
+      
       />
       <Button
         className="absolute top-3 right-3 p-[1.8px] w-[10%] aspect-video min-w-8 max-w-16 rounded-2xl bg-malibu-200/40 hover:bg-malibu-200/60 text-malibu-950 hover:rotate-180 hover:text-malibu-900 dark:text-malibu-300/80
