@@ -1,10 +1,9 @@
-import {useEffect, useState } from "react";
+import React, {Suspense, useEffect, useState } from "react";
 import { useTodos } from "./hooks/useTodos";
 import { useDarkMode } from "./hooks/useDarkMode";
 import { useOrderBy } from "./hooks/useOrderBy";
 import Header from "./features/Header";
 import Operations from "./features/Operations";
-import TodoList from "./features/TodoList";
 import Modal from "./ui/Modal";
 import useUndoRedo from "./hooks/useUndoRedo";
 
@@ -13,8 +12,14 @@ import ContextMenu from "./ui/ContextMenu";
 import TodoForm from "./features/TodoForm";
 import { Route, Routes } from "react-router-dom";
 import BuyMeACoffee from "./features/BuyMeACoffee";
+import { Loader } from "react-feather";
 
+// 将大组件改为动态导入
+// 替换直接导入
+// import TodoItem from './features/TodoItem'
 
+// 改为动态导入
+const TodoList = React.lazy(() => import('./features/TodoList'))
 export default function App() {
   const { todos, setTodos } = useTodos();
   const { darkmode, setDarkmode } = useDarkMode();
@@ -109,7 +114,11 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
              orderBy={orderBy} 
              setOrderBy={setOrderBy}
            />
+
+           <Suspense fallback={<Loader/>}>
            <TodoList todos={todos} setTodos={setTodos} />
+
+           </Suspense>
       </TodoForm>}/>
         <Route path='/sponsor' element={<BuyMeACoffee/>}/>
     </Routes>
