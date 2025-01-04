@@ -5,7 +5,7 @@ import Button from "../ui/Button"
 const HeaderExtend = ({undo,redo,newItem,setNewItem,isShowHeaderExtend}) => {
     const [isGenerating,setIsGenerating]=useState(false)
   return (
-    <div className={`${!isShowHeaderExtend?"h-0 opacity-0 p-0":"flex-center py-2  w-full rounded-md opacity-100 "} transition-all`}>
+    <div className={`${!isShowHeaderExtend?" hidden":"flex-center py-2  w-full rounded-md opacity-100 "} transition-all `}>
         <span className="flex gap-5 flex-wrap">
 
         <Button 

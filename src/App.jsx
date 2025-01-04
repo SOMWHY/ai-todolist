@@ -9,6 +9,10 @@ import Modal from "./ui/Modal";
 import useUndoRedo from "./hooks/useUndoRedo";
 
 import HeaderExtend from "./features/HeaderExtend";
+import ContextMenu from "./ui/ContextMenu";
+import TodoForm from "./features/TodoForm";
+import { Route, Routes } from "react-router-dom";
+import BuyMeACoffee from "./features/BuyMeACoffee";
 
 
 export default function App() {
@@ -25,7 +29,7 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
 
   useEffect(() => {
     sortTodos();
-  }, [todos, sortTodos]);
+  }, [sortTodos]);
 
   function handleAddItem() {
     setTodos(curTodos => [...curTodos, {
@@ -62,7 +66,9 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
   }
 
   return (
-    <div className={`${darkmode ? "dark" : ""} p-0 box-border w-screen h-screen dark:bg-malibu-900 bg-malibu-600`}>
+    <div className={`${darkmode ? "dark" : ""} p-0 box-border w-screen h-screen dark:bg-malibu-900 bg-malibu-600 
+    
+    `}>
       {showDuplicatedModal && (
         <Modal 
           onConfirm={handleConfirm}
@@ -78,36 +84,36 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
           </main>
         </Modal>
       )}
-      <form 
-         
-        autoComplete="off"
-        className={`flex flex-col items-center w-full max-w-[640px] h-screen rounded-sm px-1 py-1 gap-1 absolute left-[50%] -translate-x-[50%]`} 
-        onSubmit={handleSubmit}
-      >
-        <button type="submit" className="hidden" name="hiddenElForSubmitting"/>
+     
+      <ContextMenu onSubmit={handleSubmit} setOrderBy={setOrderBy}/>
+      <Routes>
+        <Route path='/' element={<TodoForm handleSubmit={handleSubmit}>
         <Header 
-          newItemInputRef={inputRef} 
-          newItem={newItem} 
-          setNewItem={setNewItem} 
-          setDarkmode={setDarkmode} 
-          todos={todos}
-          setIsShowHeaderExtend={setIsShowHeaderExtend}
-        />
-        <HeaderExtend
-        isShowHeaderExtend={isShowHeaderExtend}
-        undo={undo}
-        redo={redo}
-        newItem={newItem}
-        setNewItem={setNewItem}
-        />
-        <Operations 
-          setTodos={setTodos} 
-          todos={todos}
-          orderBy={orderBy} 
-          setOrderBy={setOrderBy}
-        />
-        <TodoList todos={todos} setTodos={setTodos} />
-      </form>
+             newItemInputRef={inputRef} 
+             newItem={newItem} 
+             setNewItem={setNewItem} 
+             setDarkmode={setDarkmode} 
+             todos={todos}
+             setIsShowHeaderExtend={setIsShowHeaderExtend}
+           />
+           <HeaderExtend
+           isShowHeaderExtend={isShowHeaderExtend}
+           undo={undo}
+           redo={redo}
+           newItem={newItem}
+           setNewItem={setNewItem}
+           />
+           <Operations 
+             setTodos={setTodos} 
+             todos={todos}
+             orderBy={orderBy} 
+             setOrderBy={setOrderBy}
+           />
+           <TodoList todos={todos} setTodos={setTodos} />
+      </TodoForm>}/>
+        <Route path='/sponsor' element={<BuyMeACoffee/>}/>
+    </Routes>
+      
     </div>
   );
 }
