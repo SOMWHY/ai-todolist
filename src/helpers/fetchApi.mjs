@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,  // 使用 Vite 的环境变量
+    apiKey: JSON.parse(localStorage.getItem("API_KEY"))??"",  // 使用 Vite 的环境变量
     baseURL: 'https://api.chatanywhere.tech',
     dangerouslyAllowBrowser: true
 });
@@ -28,7 +28,11 @@ export default async function handleGenerating
         const msg=response.choices[0].message.content.trim().slice(1,-1)  //remove white-space and ""
         setNewItem(msg)
     } catch (err) {
-        console.error("error generated:",err)
+        console.error("Error generated:", err);
+        if (err.response && err.response.status === 401) {
+          throw new Error("Invalid API key. Please check your API key and try again.");
+        }
+        throw new Error("Failed to generate todo. Please try again later.");
     }
     finally{
         setIsGenerating(false)

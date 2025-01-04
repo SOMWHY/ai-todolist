@@ -30,7 +30,7 @@ export default function App() {
 const [newItem,setNewItem,undo,redo,inputRef]=useUndoRedo("",5)
 const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
   
-
+const [isSettingApiKey,setIsSettingApiKey]=useState(false)
 
   useEffect(() => {
     sortTodos();
@@ -90,7 +90,8 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
         </Modal>
       )}
      
-      <ContextMenu onSubmit={handleSubmit} setOrderBy={setOrderBy}/>
+      <ContextMenu onSubmit={handleSubmit} setIsSettingApiKey={setIsSettingApiKey}/>
+
       <Routes>
         <Route path='/' element={<TodoForm handleSubmit={handleSubmit}>
         <Header 
@@ -107,6 +108,7 @@ const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
            redo={redo}
            newItem={newItem}
            setNewItem={setNewItem}
+           isSettingApiKey={isSettingApiKey}
            />
            <Operations 
              setTodos={setTodos} 
