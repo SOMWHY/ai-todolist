@@ -13,6 +13,7 @@ import TodoForm from "./features/TodoForm";
 import { Route, Routes } from "react-router-dom";
 import BuyMeACoffee from "./features/BuyMeACoffee";
 import { Loader } from "react-feather";
+import NotFoundPage from "./features/NotFoundPage";
 
 // 将大组件改为动态导入
 // 替换直接导入
@@ -30,7 +31,7 @@ export default function App() {
 const [newItem,setNewItem,undo,redo,inputRef]=useUndoRedo("",5)
 const [isShowHeaderExtend,setIsShowHeaderExtend]=useState(false)
   
-const [isSettingApiKey,setIsSettingApiKey]=useState(false)
+const [isSettingApiKey,setIsSettingApiKey]=useState(true)
 
   useEffect(() => {
     sortTodos();
@@ -123,6 +124,7 @@ const [isSettingApiKey,setIsSettingApiKey]=useState(false)
            </Suspense>
       </TodoForm>}/>
         <Route path='/sponsor' element={<BuyMeACoffee/>}/>
+        <Route path='*' element={<NotFoundPage/>}/>
     </Routes>
       
     </div>
