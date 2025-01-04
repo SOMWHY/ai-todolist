@@ -16,9 +16,6 @@ export default function Header({newItemInputRef, newItem, setNewItem, setDarkmod
       duration: 0.8,
       ease: "elastic.out(1, 0.5)",
     });
-
-
-    
   }, []);
 
   return (
