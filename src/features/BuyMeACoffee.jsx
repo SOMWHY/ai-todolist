@@ -6,8 +6,12 @@ import { Link } from 'react-router-dom'
 export default function BuyMeACoffee() {
   return (
     <div 
+    style={{ 
+      background:"url(`/assets/coffee-bg.jpg`)",
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",}}
     
-    data-bg="/assets/coffee-bg.jpg"
      className="lazy-background relative flex justify-center items-center p-4 w-screen h-screen "  >
      <div className="absolute inset-0 dark:bg-malibu-950/60 bg-malibu-800/60"></div>
      <div className=' z-50'>
