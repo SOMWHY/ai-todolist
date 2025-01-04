@@ -1,11 +1,14 @@
-
 import { Home } from 'react-feather'
 import Button from '../ui/Button'
 import { Link } from 'react-router-dom'
+import React from 'react'
 
 export default function BuyMeACoffee() {
   return (
-    <div className="flex justify-center items-center p-4 w-screen h-screen">
+    <div style={{ backgroundImage: "url('/assets/coffee-bg.jpg')",backgroundSize:"contain",backgroundRepeat:"no-repeat",backgroundPosition:"center" }} className="relative flex justify-center items-center p-4 w-screen h-screen "  >
+     <div className="absolute inset-0 dark:bg-malibu-950/60 bg-malibu-800/60"></div>
+     <div className=' z-50'>
+
         <Button className="rounded-lg absolute left-3 top-14 text-malibu-950 dark:text-malibu-200 dark:bg-malibu-900/80 bg-malibu-500 ">
             <Link to="/" className='flex gap-1'>
             <Home/> <span>
@@ -24,6 +27,7 @@ export default function BuyMeACoffee() {
 
         <span>在爱发电上赞助我</span>
       </a>
+     </div>
     </div>
   )
 }
