@@ -1,7 +1,7 @@
 import { Home } from 'react-feather'
 import Button from '../ui/Button'
 import { Link } from 'react-router-dom'
-import React from 'react'
+
 
 export default function BuyMeACoffee() {
   return (
